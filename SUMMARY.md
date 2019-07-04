@@ -10,6 +10,7 @@
     * Date转换
     * Spring Cloud笔记
 * Go学习笔记
+	* 安装
 * Python学习笔记
 * Flutter入坑记
     * 开发环境搭建
