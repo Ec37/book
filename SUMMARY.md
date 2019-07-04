@@ -16,12 +16,7 @@
 * Web前端笔记
     * 获取select选中的值
 * dotNet Core学习笔记
-* GitBook搭建记录
-    * 简单介绍一下
-    * node.js安装
-    * GitBook for node.js
-    * 安装Git
-    * 绑定GitHub到本地Git
+* [GitBook搭建笔记](md_gitbook/gitbook.md)
 * Git操作说明
     * GitHub授权
 
