@@ -8,7 +8,7 @@
 ## 安装配置GitBook 
 * 安装完node.js后在终端（或者cmd、PowerShell）输入:
  `npm install -g gitbook-cli`
-* 安装完成后，新建并进入目录:
+* 安装完成后，新建并进入目录:                                                                                 
  `mkdir mybook`
  `cd mybook`
 * 初始化gitbook：
@@ -19,6 +19,8 @@
   点击进入:[localhost:4000](http://localhost:4000)
 
 ## 安装 Git 
+  还是进入官网[Git官网](https://git-scm.com)
+  下载Git，选好安装路径一路next就可以了
  
 ## 绑定GitHub到本地Git 
 
