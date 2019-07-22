@@ -44,7 +44,7 @@
     z 时区
 
 ## 日期时间计算
-1. 日期加减--Calendar：
+1. __日期加减--Calendar：__
 
 ```java
 
@@ -57,7 +57,7 @@
 
 ```
 
-2.__区间天数：__
+2. __区间天数：__
 ```java 
     import java.text.ParseException;
     import java.text.SimpleDateFormat;
@@ -96,7 +96,7 @@
             try {
                 Date date1 = format1.parse(dateStr1);
                 Date date2 = format2.parse(dateStr2);
-                
+
                 System.out.println("1949年10月1日和2016年8月15日相差了："+differentDays(date1,date2)+"天！");
             System.out.println(differentDayMillisecond(date1,date2));
             } catch (ParseException e) {
