@@ -7,14 +7,22 @@
 
 ## 安装配置GitBook 
 * 安装完node.js后在终端（或者cmd、PowerShell）输入:
- `npm install -g gitbook-cli`
+    ```bash 
+    npm install -g gitbook-cli
+    ```
 * 安装完成后，新建并进入目录:                                                                                 
- `mkdir mybook`
- `cd mybook`
+    ```bash 
+    mkdir mybook
+    cd mybook
+    ```
 * 初始化gitbook：
- `gitbook init`
+    ```bash 
+    gitbook init
+    ```
 * 启动gitbook环境：
- `gitbook serve`
+    ```bash 
+    gitbook serve
+    ```
 * 到这里有已经完成了本地的GitBook的搭建以及启动了
   点击进入:[localhost:4000](http://localhost:4000)
 

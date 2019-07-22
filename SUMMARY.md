@@ -8,7 +8,8 @@
     * [树莓派相关](md_linux/raspberryPi.md)
 * Java恰饭笔记
     * Date转换
-    * Spring Cloud笔记
+    * [Java偏门面试题01](md_java/javaSide.md)
+    * [Spring Cloud笔记](md_java/springCloud.md)
 * Go学习笔记
 	* 安装
 * Python学习笔记
