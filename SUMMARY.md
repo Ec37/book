@@ -11,10 +11,10 @@
     * [Java偏门面试题01](md_java/javaSide.md)
     * [Spring Cloud笔记](md_java/springCloud.md)
 * Go学习笔记
-	* 安装
+	* [环境搭建](md_golang/goStart.md)
 * Python学习笔记
 * Flutter入坑记
-    * 开发环境搭建
+    * [开发环境搭建](md_flutter/flutterStart.md)
 * Web前端笔记
     * 获取select选中的值
 * dotNet Core学习笔记
