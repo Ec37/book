@@ -20,13 +20,13 @@
 2. 下载完所需的Android SDK后，配置环境变量ANDRPID_HOME，找到Android SDK的路径即可
 3. 安装完成后，再一次运行flutter doctor，将提示缺失的都配置完就可以了
 
-## 三.在Android Studio进行开发
+## 三.Android Studio进行开发（无需进入 四.）
 0. 找到configure->plugins
 1. 安装flutter插件
 2. 安装Dart插件
 3. 这样就可以new Flutter project了
 
-## 四.在VSCode进行开发
+## 四.Visual Studio Code进行开发
 1. 安装flutter插件
 2. 安装Dart插件
 3. ctrl+shift+p->输入flutter->选择New 

@@ -13,12 +13,18 @@
 * Go学习笔记
 	* [环境搭建](md_golang/goStart.md)
 * Python学习笔记
+    * [Python3环境搭建](md_python/python3Start.md)
 * Flutter入坑记
     * [开发环境搭建](md_flutter/flutterStart.md)
+    * [Dart语法规则](md_flutter/dartRule.md)
 * Web前端笔记
-    * 获取select选中的值
+    * [奇葩问题笔记](md_web/webSide.md)
 * dotNet Core学习笔记
-* [GitBook搭建笔记](md_gitbook/gitbook.md)
+    * [dotNet Core开发环境](md_dotNetCore/dotNetCore.md)
+* GitBook笔记
+    * [GitBook搭建笔记](md_gitbook/gitbook.md)
 * Git操作说明
-    * GitHub授权
+    * [Git常用指令](md_git/gitBash.md)
+    * [GitHub授权](md_git/gitHubLink.md)
+    * [码云授权](md_git/giteeLink.md)
 
