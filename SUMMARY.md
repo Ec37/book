@@ -20,7 +20,7 @@
 * Web前端笔记
   * [奇葩问题笔记](md_web/webSide.md)
 * dotNet Core学习笔记
-  * [dotNet Core开发环境](md_dotNetCore/dotNetCore.md)
+  * [dotNet Core开发环境](md_dotNetCore/dotNetCoreStart.md)
 * GitBook笔记
   * [GitBook搭建笔记](md_gitbook/gitbook.md)
 * Git操作说明
