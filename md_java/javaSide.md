@@ -1,3 +1,5 @@
+# Java偏门面试题01
+
 1. 原始类型的 float
     第一题是这样的，代码如下：
 
@@ -110,8 +112,7 @@
     但结果再次打脸！程序抛出了异常：
 
     ```java
-    Exception in thread "main" java.lang.NullPointerException
-	at com.cmower.java_demo.Test.main(Test.java:7)
+    Exception in thread "main" java.lang.NullPointerException at com.cmower.java_demo.Test.main(Test.java:7)
     ```
 
     也就是说，switch () 的括号中不允许传入 null。为什么呢？
@@ -124,14 +125,14 @@
 
     * 那到底是为什么呢？
 
-    ```java 
+    ```java
     public static void main(String args[])
     {
         String param = null;
         String s;
         switch((s = param).hashCode())
         {
-        case 3392903: 
+        case 3392903:
             if(s.equals("null"))
             {
                 System.out.println("null");
@@ -145,7 +146,7 @@
         }
     }
     ```
-    
+
     * 借助 jad，我们来反编译一下 switch 的字节码，结果如上所示。原来 switch () 表达式内部执行的竟然是 (s = param).hashCode()，当 param 为 null 的时候，s 也为 null，调用 hashCode() 方法的时候自然会抛出 NullPointerException 了。
 
 4. BigDecimal 的赋值方式
@@ -175,18 +176,17 @@
 
     这究竟又是怎么回事呢？
 
-
     这就必须看官方文档了，是时候搬出 BigDecimal(double val) 的 JavaDoc 镇楼了。
-    
+
     >1. The results of this constructor can be somewhat unpredictable. One might assume that writing new BigDecimal(0.1) in Java creates a BigDecimal which is exactly equal to 0.1 (an unscaled value of 1, with a scale of 1), but it is actually equal to 0.1000000000000000055511151231257827021181583404541015625. This is because 0.1 cannot be represented exactly as a double (or, for that matter, as a binary fraction of any finite length). Thus, the value that is being passed in to the constructor is not exactly equal to 0.1, appearances notwithstanding.
 
     解释：使用 double 传参的时候会产生不可预期的结果，比如说 0.1 实际的值是 0.1000000000000000055511151231257827021181583404541015625，说白了，这还是精度的问题。（既然如此，为什么不废弃呢？）
-    
-    >2. The String constructor, on the other hand, is perfectly predictable: writing new BigDecimal("0.1") creates a BigDecimal which is exactly equal to 0.1, as one would expect. Therefore, it is generally recommended that the String constructor be used in preference to this one.
+
+    > 2.The String constructor, on the other hand, is perfectly predictable: writing new BigDecimal("0.1") creates a BigDecimal which is exactly equal to 0.1, as one would expect. Therefore, it is generally recommended that the String constructor be used in preference to this one.
 
     解释：使用字符串传参的时候会产生预期的结果，比如说 `new BigDecimal("0.1")` 的实际结果就是 0.1。
-    
-    >3. When a double must be used as a source for a BigDecimal, note that this constructor provides an exact conversion; it does not give the same result as converting the double to a String using the Double.toString(double) method and then using the BigDecimal(String) constructor. To get that result, use the static valueOf(double) method.
+
+    > 3.When a double must be used as a source for a BigDecimal, note that this constructor provides an exact conversion; it does not give the same result as converting the double to a String using the Double.toString(double) method and then using the BigDecimal(String) constructor. To get that result, use the static valueOf(double) method.
 
     解释：如果必须将一个 double 作为参数传递给 BigDecimal 的话，建议传递该 double 值匹配的字符串值。方式有两种：
 
@@ -212,6 +212,7 @@
 
 5. ReentrantLock
     最后一题，也就是第五题，代码如下：
+
     ```java
     public class LockTest {
         private final static Lock lock = new ReentrantLock();
@@ -227,13 +228,14 @@
         }
     }
     ```
+
     问题如下：
     A: lock 是非公平锁
     B: finally 代码块不会抛出异常
     C: tryLock 获取锁失败则直接往下执行
-    
+
     很惭愧，我不知道 ReentrantLock 是不是公平锁；也不知道 finally 代码块会不会抛出异常；更不知道 tryLock 获取锁失败的时候会不会直接往下执行。没法作答了。
-    
+
     连续五道题解不出来，虽然我脸皮非常厚，但也觉得脸上火辣辣的，就像被人狠狠地抽了一个耳光。
 
     容我研究研究吧。
@@ -242,7 +244,7 @@
     ReentrantLock 是一个使用频率非常高的锁，支持重入性，能够对共享资源重复加锁，即当前线程获取该锁后再次获取时不会被阻塞。
 
     ReentrantLock 既是公平锁又是非公平锁。调用无参构造方法时是非公平锁，源码如下：
-    
+
     ```java
     public ReentrantLock() {
         sync = new NonfairSync();
@@ -252,7 +254,7 @@
     * 所以本题中的 lock 是非公平锁，A 选项是正确的。
 
     * ReentrantLock 还提供了另外一种构造方法，源码如下：
-    
+
     ```java
     public ReentrantLock(boolean fair) {
         sync = fair ? new FairSync() : new NonfairSync();
@@ -268,7 +270,7 @@
 
     __2）finally 代码块不会抛出异常__
     Lock 对象在调用 unlock 方法时，会调用 `AbstractQueuedSynchronizer` 的 `tryRelease` 方法，如果当前线程不持有锁的话，则抛出 `IllegalMonitorStateException` 异常。
-    
+
     所以建议本题的示例代码优化为以下形式（进入业务代码块之前，先判断当前线程是否持有锁）：
 
     ```java
@@ -291,7 +293,4 @@
     * 中文意思是如果锁可以用，则获取该锁，并立即返回 true，如果锁不可用，则立即返回 false。
     * 针对本题的话， 在 tryLock 获取锁失败的时候，程序会执行 finally 块的代码。
 
-
-
-
-    >>>>>> 本文源地址：[Java 代码界 3% 的王者？看我是如何解错这 5 道题的](https://juejin.im/post/5d2d9015f265da1bb47d9795)
+    *笔记内容来自：[Java 代码界 3% 的王者？看我是如何解错这 5 道题的](https://juejin.im/post/5d2d9015f265da1bb47d9795)*
