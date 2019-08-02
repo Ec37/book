@@ -1352,3 +1352,336 @@ print(aMap);
 ```
 
 ### 类-扩展一个类
+
+* 使用 extends 创建一个子类，同时 supper 将指向父类：
+
+```dart
+    class Television {
+        void turnOn() {
+        _illuminateDisplay();
+            _activateIrSensor();
+        }
+        // ...
+    }
+
+    class SmartTelevision extends Television {
+
+        void turnOn() {
+        super.turnOn();
+        _bootNetworkInterface();
+        _initializeMemory();
+        _upgradeApps();
+        }
+        // ...
+    }
+```
+
+* 子类可以重载实例方法， getters 方法， setters 方法。下面是个关于重写 Object 类的方法 noSuchMethod() 的例子,当代码企图用不存在的方法或实例变量时，这个方法会被调用。
+
+```dart
+    class A {
+        // 如果你不重写 noSuchMethod 方法, 就用一个不存在的成员，会导致NoSuchMethodError 错误。
+        void noSuchMethod(Invocation mirror) {
+            print('You tried to use a non-existent member:' + '${mirror.memberName}');
+        }
+    }
+```
+
+* 你可以使用 @override 注释来表明你重写了一个成员。
+
+```dart
+    class A {
+        @override
+        void noSuchMethod(Invocation mirror) {
+        // ...
+        }
+    }
+```
+
+* 如果你用 noSuchMethod() 实现每一个可能的 getter 方法，setter 方法和类的方法，那么你可以使用 @proxy 标注来避免警告。
+
+```dart
+    @proxy
+    class A {
+        void noSuchMethod(Invocation mirror) {
+            // ...
+        }
+    }
+```
+
+### 库和可见性
+
+1. import,part,library指令可以帮助创建一个模块化的，可共享的代码库。库不仅提供了API，还提供隐私单元：以下划线（_）开头的标识符只对内部库可见。每个Dartapp就是一个库，即使它不使用库指令。
+
+2. 库可以分布式使用包。见 Pub Package and Asset Manager 中有关pub(SDK中的一个包管理器）。
+
+3. **使用库**
+    * 使用 import 来指定如何从一个库命名空间用于其他库的范围。
+
+    * 例如，Dart Web应用一般采用这个库 dart:html，可以这样导入：
+
+    ```dart
+        import 'dart:html';
+    ```
+
+    * 唯一需要 import 的参数是一个指向库的 URI。对于内置库，URI中具有特殊dart:scheme。对于其他库，你可以使用文件系统路径或package:scheme。包 package：scheme specifies libraries ，如pub工具提供的软件包管理器库。例如：
+
+    ```dart
+        import 'dart:io';
+        import 'package:mylib/mylib.dart';
+        import 'package:utils/utils.dart';
+    ```
+
+4. **指定库前缀**
+    * 如果导入两个库是有冲突的标识符，那么你可以指定一个或两个库的前缀。例如，如果 library1 和 library2 都有一个元素类，那么你可能有这样的代码：
+
+    ```dart
+        import 'package:lib1/lib1.dart';
+        import 'package:lib2/lib2.dart' as lib2;
+        // ...
+        var element1 = new Element(); // 使用lib1里的元素
+        var element2 =
+        new lib2.Element();  // 使用lib2里的元素
+    ```
+
+5. **导入部分库**
+    * 如果想使用的库一部分，你可以选择性导入库。例如：
+
+    ```dart
+         // 只导入foo库
+        import 'package:lib1/lib1.dart' show foo;
+        //  导入所有除了foo
+        import 'package:lib2/lib2.dart' hide foo;
+    ```
+
+6. 延迟加载库
+    * 延迟(deferred)加载（也称为延迟(lazy)加载）允许应用程序按需加载库。下面是当你可能会使用延迟加载某些情况：
+        * 为了减少应用程序的初始启动时间；
+        * 执行A / B测试-尝试的算法的替代实施方式中；
+        * 加载很少使用的功能，例如可选的屏幕和对话框。
+    * 为了延迟加载一个库，你必须使用 deferred as 先导入它。
+
+    ```dart
+         import 'package:deferred/hello.dart' deferred as hello;
+    ```
+
+    * 当需要库时，使用该库的调用标识符调用 LoadLibrary（）。
+
+    ```dart
+        greet() async {
+            await hello.loadLibrary();
+            hello.printGreeting();
+        }
+    ```
+
+    * 在前面的代码，在库加载好之前，await关键字都是暂停执行的。有关 async 和 await 见 asynchrony support 的更多信息。
+
+    * 您可以在一个库调用 LoadLibrary（） 多次都没有问题。该库也只被加载一次。
+
+    * 当您使用延迟加载，请记住以下内容：
+
+        * 延迟库的常量在其作为导入文件时不是常量。记住，这些常量不存在，直到迟库被加载完成。
+
+        * 你不能在导入文件中使用延迟库常量的类型。相反，考虑将接口类型移到同时由延迟库和导入文件导入的库。
+
+        * Dart隐含调用LoadLibrary（）插入到定义deferred as namespace。在调用LoadLibrary（）函数返回一个Future。
+
+7. 库的实现
+
+    * 用 library 来来命名库，用part来指定库中的其他文件。 注意：不必在应用程序中（具有顶级main（）函数的文件）使用library，但这样做可以让你在多个文件中执行应用程序。
+
+8. 声明库
+
+    * 利用library identifier（库标识符）指定当前库的名称：
+
+    ```dart
+        // 声明库，名ballgame
+        library ballgame;
+
+        // 导入html库
+        import 'dart:html';
+
+        // ...代码从这里开始...
+    ```
+
+9. 关联文件与库
+
+    * 添加实现文件，把part fileUri放在有库的文件，其中fileURI是实现文件的路径。然后在实现文件中，添加部分标识符（part of identifier），其中标识符是库的名称。下面的示例使用的一部分，在三个文件来实现部分库。
+
+    * 第一个文件，ballgame.dart，声明球赛库，导入其他需要的库，并指定ball.dart和util.dart是此库的部分：
+
+    ```dart
+        library ballgame;
+
+        import 'dart:html';
+        // ...其他导入在这里...
+
+        part 'ball.dart';
+        part 'util.dart';
+
+        // ...代码从这里开始...
+    ```
+
+    * 第二个文件ball.dart，实现了球赛库的一部分：
+
+    ```dart
+        part of ballgame;
+
+         // ...代码从这里开始...
+    ```
+
+    * 第三个文件，util.dart，实现了球赛库的其余部分：
+
+    ```dart
+        part of ballgame;
+
+        // ...Code goes here...
+    ```
+
+10. 重新导出库(Re-exporting libraries)
+
+    * 可以通过重新导出部分库或者全部库来组合或重新打包库。例如，你可能有实现为一组较小的库集成为一个较大库。或者你可以创建一个库，提供了从另一个库方法的子集。
+
+    ```dart
+        // In french.dart:
+        library french;
+
+        hello() => print('Bonjour!');
+        goodbye() => print('Au Revoir!');
+
+        // In togo.dart:
+        library togo;
+
+        import 'french.dart';
+        export 'french.dart' show hello;
+
+        // In another .dart file:
+        import 'togo.dart';
+
+        void main() {
+            hello();   //print bonjour
+            goodbye(); //FAIL
+        }
+    ```
+
+### 异步的支持
+
+1. Dart 添加了一些新的语言特性用于支持异步编程。最通常使用的特性是 async 方法和 await 表达式。Dart 库大多方法返回 Future 和 Stream 对象。这些方法是异步的：它们在设置一个可能的耗时操作（比如 I/O 操作）之后返回，而无需等待操作完成
+
+2. 当你需要使用 Future 来表示一个值时，你有两个选择。
+    * 使用 async 和 await
+    * 使用 Future API
+
+3. 同样的，当你需要从 Stream 获取值的时候，你有两个选择。
+    * 使用 async 和一个异步的 for 循环 (await for)
+    * 使用 Stream API
+
+4. 使用 async 和 await 的代码是异步的，不过它看起来很像同步的代码。比如这里有一段使用 await 等待一个异步函数结果的代码：
+
+    ```dart
+    await lookUpVersion()
+    ```
+
+5. 要使用 await，代码必须用 await 标记
+
+    ```dart
+        checkVersion() async {
+            var version = await lookUpVersion();
+            if (version == expectedVersion) {
+                // Do something.
+        } else {
+            // Do something else.
+            }
+        }
+    ```
+
+6. 你可以使用 try, catch, 和 finally 来处理错误并精简使用了 await 的代码。
+
+    ```dart
+        try {
+            server = await HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 4044);
+        } catch (e) {
+            // React to inability to bind to the port...
+        }
+    ```
+
+7. **声明异步函数**
+
+    * 一个异步函数是一个由 async 修饰符标记的函数。虽然一个异步函数可能在操作上比较耗时，但是它可以立即返回-在任何方法体执行之前。
+
+    ```dart
+        checkVersion() async {
+            // ...
+        }
+
+        lookUpVersion() async => /* ... */;
+    ```
+
+    * 在函数中添加关键字 async 使得它返回一个 Future，比如，考虑一下这个同步函数，它将返回一个字符串。
+
+    * `String lookUpVersionSync() => '1.0.0';`
+
+    * 如果你想更改它成为异步方法-因为在以后的实现中将会非常耗时-它的返回值是一个 Future。
+
+    * `Future<String> lookUpVersion() async => '1.0.0';`
+
+    * ***请注意函数体不需要使用 Future API，如果必要的话 Dart 将会自己创建 Future 对象***
+
+8. 使用带 future 的 await 表达式
+
+    * 一个 await表达式具有以下形式
+
+    ```dart
+        await expression
+    ```
+
+    * 在异步方法中你可以使用 await 多次。比如，下列代码为了得到函数的结果一共等待了三次。
+
+    ```dart
+        var entrypoint = await findEntrypoint();
+        var exitCode = await runExecutable(entrypoint, args);
+        await flushThenExit(exitCode);
+    ```
+
+    * 在 `await` 表达式中， 表达式 的值通常是一个 Future 对象；如果不是，那么这个值会自动转为 Future。这个 Future 对象表明了表达式应该返回一个对象。`await` 表达式 的值就是返回的一个对象。在对象可用之前，`await` 表达式将会一直处于暂停状态。
+
+    * **如果 await 没有起作用，请确认它是一个异步方法**。比如，在你的 main() 函数里面使用await，main() 的函数体必须被 async 标记：
+
+    ```dart
+        main() async {
+            checkVersion();
+            print('In main: version is ${await lookUpVersion()}');
+        }
+    ```
+
+9. 结合 streams 使用异步循环
+
+    * 一个异步循环具有以下形式：
+
+    ```dart
+        await for (variable declaration in expression) {
+            // Executes each time the stream emits a value.
+        }
+    ```
+
+    * 表达式 的值必须有Stream 类型（流类型）。执行过程如下：
+
+        * 在 stream 发出一个值之前等待
+        * 执行 for 循环的主体，把变量设置为发出的值。
+        * 重复 1 和 2，直到 Stream 关闭
+
+    * 如果要停止监听 stream ，你可以使用 break 或者 return 语句，跳出循环并取消来自 stream 的订阅 。
+
+    * 如果一个异步 for 循环没有正常运行，请确认它是一个异步方法。 比如，在应用的 main() 方法中使用异步的 for 循环时，main() 的方法体必须被 async 标记。
+
+    ```dart
+        main() async {
+            //...
+            await for (var request in requestServer) {
+                handleRequest(request);
+            }
+            //...
+        }
+    ```
+
+    * 更多关于异步编程的信息，请看 dart:async 库部分的介绍。你也可以看文章  [Dart Language Asynchrony Support: Phase 1](https://www.dartlang.org/articles/await-async/) 和 [Dart Language Asynchrony Support: Phase 2](https://www.dartlang.org/articles/beyond-async/) 和 [the Dart language specification](https://www.dartlang.org/docs/spec/)
