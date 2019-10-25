@@ -21,6 +21,7 @@
   * [Dart语法规则](md_flutter/dartRule.md)
 * Web前端笔记
   * [奇葩问题笔记](md_web/webSide.md)
+  * [cUrl新手入门笔记](md_web/curl_0.md)
 * dotNet Core学习笔记
   * [dotNet Core开发环境](md_dotNetCore/dotNetCoreStart.md)
 * GitBook笔记
