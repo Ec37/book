@@ -12,6 +12,7 @@
   * [时间的问题](md_java/Date.md)
   * [Java偏门面试题01](md_java/javaSide.md)
   * [Spring Cloud笔记](md_java/springCloud.md)
+  * [Redis相关的知识点](md_java/redis.md)
 * Go学习笔记
   * [环境搭建](md_golang/goStart.md)
 * Python学习笔记
