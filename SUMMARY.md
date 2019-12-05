@@ -8,6 +8,7 @@
   * [树莓派相关](md_linux/raspberryPi.md)
   * [Linux常见问题解决方法](md_linux/qa.md)
   * [linux关于bashrc与profile的区别](md_linux/bp.md)
+  * [日志查看](md_linux/log.md)
 * Java恰饭笔记
   * [时间的问题](md_java/Date.md)
   * [Java偏门面试题01](md_java/javaSide.md)
