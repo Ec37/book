@@ -36,9 +36,9 @@
 
 ### 3.利用阿里ddns实现ip自动解析到域名
 
-0. 一般10小时这样子你的公网IP会变动一次，这里可以使用阿里云的ddns接口进行动态绑定。
 1. 其实官方有Java的实例代码：https://help.aliyun.com/document_detail/141482.html?spm=5176.11065259.1996646101.searchclickresult.46fd2881SgUCqH
 2. 把准备好的jdk配置到你的设备(注意，这里的设备可以不是你的dmz主机)，把官方的Java代码修改成定时任务的spring boot程序
-3. 后台执行 nohup java -jar ****.jar > ***.log 2&1   & 并输出日志到***.log
+3. 后台执行 nohup java -jar xx.jar > xyz.log 2&1   & 并输出日志到xyz.log
 4. 如果不嫌麻烦，还可以利用/etc/rc.local文件，设置启动执行
 5. 这样子就基本上完成了ddns的设置，以后你要连接家里的设备，都可以通过域名了。
+6. 设置重启和自动启动程序
