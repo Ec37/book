@@ -21,6 +21,8 @@
 3. 两边都设置完，可以利用上面获取到的公网IP地址测试下：
     (1). DMZ主机上安装nginx:`sudo apt-get install nginx `
     (2). 修改nginx默认访问端口:`sudo vim /etc/nginx/sites-available/default`;把80端口改成你映射的内网端口
+    (3). 运行nginx:sudo service nginx start
+    (4). 如果能正常访问 {公网ip}:端口号 进入nginx默认首页，那说明公网IP已经正常设置好了
 
 ### 3.利用阿里ddns实现ip自动解析到域名
 
