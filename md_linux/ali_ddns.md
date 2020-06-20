@@ -7,7 +7,7 @@
 3. 公网IP（电信打电话给客服就能免费申请到）
 4. 提前下载好对应平台的jdk文件(ARM或者x86)
 5. 查看自家光猫底部的贴纸获取：管理页地址、账号、默认密码 (路由器应该不用提吧)
-6. 需要有Java和SpringBoot编程基础（就是调用一下阿里的API，可以使用其他语言，不深究）
+6. 需要有Java和SpringBoot编程基础、部分Linux基础即可（就是调用一下阿里的API，可以使用其他语言，不深究）
 
 ## 确保自己的宽带已申请公网IP
 
@@ -68,15 +68,15 @@
         重启设备
         sudo reboot
     ```
-    * 开机启动服务
+    * 开机启动jar程序
     ```bash
         打开启动配置文件
         sudo vim /etc/rc.local
-        最后一行加上:
-        /jdk/jdk1.8/bin/java -jar /home/pi/ddns-task.jar > /home/pi/ddns-task.log 2>&1 &
+        最后一行加上(请根据实际配置):
+        /jdk/bin/java -jar /home/pi/task.jar > /home/pi/task.log 2>&1 &
     ```
     * 这里解释一下**rc.local** 为什么这样写：
-        * `/jdk/jdk1.8/bin/java` rc.local相当早启动，配置好的java指令还没读取到配置，只能写全目录了 -- 实在不懂可以理解成桌面还没加载，所以读取不到桌面的快捷方式，你只能进去磁盘里找到启动程序运行。
+        * `/jdk/bin/java` 实际上**rc.local**相当早就启动，系统启动的时候配置的指令还没读取到配置，就已经要开始读**rc.local**，所以只能写全路径(实在不懂可以理解成Windows的桌面还没开始加载，找不到桌面的快捷方式，但是你现在就要，所以你就去D盘直接找到并启动程序了)
         * `-jar` 这个跳过
-        * `/home/pi/ddns-task.jar` 这就是你Spring Task程序打好的jar包
-        * `> /home/pi/ddns-task.log 2>&1 &` 即是输出日志到`/home/pi/ddns-task.log`
+        * `/home/pi/task.jar` 这就是你Spring Task程序打好的jar包
+        * `> /home/pi/task.log 2>&1 &`  输出日志到指定目录
