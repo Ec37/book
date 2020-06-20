@@ -10,7 +10,7 @@
   * [linux关于bashrc与profile的区别](md_linux/bp.md)
   * [日志查看](md_linux/log.md)
   * [有效利用阿里云ddns服务(1) - 低成本服务器搭建](md_linux/ali_ddns.md)
-  * [有效利用阿里云ddns服务(2) - 私有网盘搭建](md_linux/seafile.md)
+  <!-- * [有效利用阿里云ddns服务(2) - 私有网盘搭建](md_linux/seafile.md) -->
 * Java恰饭笔记
   * [时间的问题](md_java/Date.md)
   * [Java偏门面试题01](md_java/javaSide.md)
