@@ -1,7 +1,6 @@
 # 搭建GitBook
 
- 这边文章会介绍如何安装GitBook以及基于Git、GitHub建立属于自己的静态博客。
- 现在开始的是搭建一个最基础的工作环境，不会新建任何工程外的文件。
+ 这边文章会记录如何安装GitBook
 
 ## 安装 node.js安装
 
@@ -41,5 +40,3 @@
 
   还是进入官网[Git官网](https://git-scm.com)
   下载Git，选好安装路径一路next就可以了
-
-## 绑定GitHub到本地Git
